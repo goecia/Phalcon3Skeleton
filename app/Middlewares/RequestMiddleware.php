@@ -5,16 +5,17 @@ namespace App\Middlewares;
 use Phalcon\Mvc\Micro;
 use Phalcon\Events\Event;
 use Phalcon\Mvc\Micro\MiddlewareInterface;
+use App\Services\Validations;
 
-class RequestMiddleware implements MiddlewareInterface {
-
+class RequestMiddleware implements MiddlewareInterface
+{
     /**
      * Middleware call.
      *
      * @param Phalcon\Mvc\Micro
      * @return bool
      */
-    public function call(Micro $app)
+    public function call(Micro $app): bool
     {
         return true;
     }
@@ -24,7 +25,7 @@ class RequestMiddleware implements MiddlewareInterface {
      *
      * @param Phalcon\Events\Event
      * @param Phalcon\Mvc\Micro
-     * @return bool
+     * @return void
      */
     public function beforeHandleRoute(Event $event, Micro $app)
     {
@@ -41,7 +42,7 @@ class RequestMiddleware implements MiddlewareInterface {
      */
     private function validateRequestParams(Micro $app)
     {
-        $app->validations->requestParams($app->request->get());
+        Validations::requestParams($app->request->get());
     }
 
     /**

@@ -11,11 +11,11 @@ class IndexController extends Controller
      * Example Controller usage.
      *
      * @param void
-     * @return array
+     * @return string
      */
-    public function indexAction()
+    public function indexAction(): string
     {
         $indexModel = new IndexModel();
         return $indexModel->getMessage();
-   }
+    }
 }

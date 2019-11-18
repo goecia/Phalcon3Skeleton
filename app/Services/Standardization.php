@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dependencies;
+namespace App\Services;
 
 use Phalcon\Mvc\Micro;
 
@@ -17,22 +17,20 @@ class Standardization
      * Parses response into an AMCO standard format.
      * 
      * @param mixed
-     * @param exception
-     * 
-     * @return void
+     * @return array
      */
-    public function formatResponse($returnedValue)
+    public function formatResponse($returnedValue): array
     {
         $response = [
-            "entry" => get_request_params(),
-            "status" => 200,
-            "message" => "OK",
-            "response" => $returnedValue
+            'success' => true,
+            'status' => 200,
+            'message' => 'OK',
+            'response' => $returnedValue
         ];
 
         // Check for errors to parse.
-        if (isset($returnedValue['errors'])) {
-            $this->formatError($response, $returnedValue['errors']);
+        if (isset($returnedValue['error'])) {
+            $this->formatError($response, $returnedValue['error']);
         }
 
         return $response;
@@ -69,12 +67,13 @@ class Standardization
             // Set standard response status code.
             $response['status'] = 400;
             // Throw an unexpected error.
-            $e = new \Exception("Unexpected error.", 0);
+            $e = new \Exception('Unexpected error.', 0);
         }
 
-        $response['message'] = "error";
-        $response['errors']['error']['message'] = $e->getMessage();
-        $response['errors']['error']['exception'] = base64_encode($e->getFile() . ' ' . $e->getLine());
-        $response['errors']['error']['code'] = array_search($e->getCode(), $this->app->config->errors->toArray());
+        $response['success'] = false;
+        $response['message'] = $this->app->response->getReasonPhrase();
+        $response['error']['message'] = $e->getMessage();
+        $response['error']['exception'] = base64_encode($e->getFile() . ': ' . $e->getLine());
+        $response['error']['code'] = array_search($e->getCode(), $this->app->config->errors->toArray());
     }
 }

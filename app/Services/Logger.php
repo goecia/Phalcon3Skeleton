@@ -1,19 +1,26 @@
 <?php
 
-namespace App\Dependencies;
+namespace App\Services;
 
-class Profiler {
+use Phalcon\Logger\Adapter\File;
 
-    protected $profile;
+class Logger extends File
+{
+    /**
+     * @var bool
+     */
+    private $profile;
 
     /**
      * Class constructor (duh).
      * 
+     * @param string
      * @param boolean
      * @return void
      */
-    public function __construct($profile)
+    public function __construct(string $logDir, bool $profile)
     {
+        parent::__construct($logDir);
         $this->profile = $profile;
     }
 

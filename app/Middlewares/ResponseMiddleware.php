@@ -6,15 +6,15 @@ use Phalcon\Mvc\Micro;
 use Phalcon\Events\Event;
 use Phalcon\Mvc\Micro\MiddlewareInterface;
 
-class ResponseMiddleware implements MiddlewareInterface {
-
+class ResponseMiddleware implements MiddlewareInterface
+{
     /**
      * Middleware call.
      *
      * @param Phalcon\Mvc\Micro
      * @return void
      */
-    public function call(Micro $app)
+    public function call(Micro $app): bool
     {
         return true;
     }

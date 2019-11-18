@@ -7,7 +7,7 @@ try {
     $app->handle();
 } catch (\Exception $e) {
     // On exception catch, format response.
-    $response = $app->standardization->formatResponse(["response" => null, "errors" => $e]);
+    $response = $app->standardization->formatResponse(['response' => null, 'error' => $e]);
     // Log error.
     $app->logger->error($e->getMessage());
 

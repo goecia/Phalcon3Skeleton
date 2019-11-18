@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dependencies;
+namespace App\Services;
 
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;
@@ -94,12 +94,12 @@ class Jwt
         $parsedToken = (new Parser())->parse($token);
 
         // Here we validate token's signature.
-        if (false === $parsedToken->verify(new Sha256(), $this->config['secret'])) {
+        if (!$parsedToken->verify(new Sha256(), $this->config['secret'])) {
             throw new JwtInvalidSignatureException();
         }
 
         // Here we validate that token is not older than 24 hours.
-        if (false === $parsedToken->validate(new ValidationData())) {
+        if (!$parsedToken->validate(new ValidationData())) {
             throw new JwtPastDueException();
         }
 

@@ -7,15 +7,15 @@ use Phalcon\Events\Event;
 use Phalcon\Mvc\Micro\MiddlewareInterface;
 use App\Exceptions\Usr\NotFoundException;
 
-class NotFoundMiddleware implements MiddlewareInterface {
-
+class NotFoundMiddleware implements MiddlewareInterface
+{
     /**
      * Middleware call.
      *
      * @param Phalcon\Mvc\Micro
      * @return bool
      */
-    public function call(Micro $app)
+    public function call(Micro $app): bool
     {
         return true;
     }

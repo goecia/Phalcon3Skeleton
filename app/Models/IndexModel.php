@@ -6,7 +6,10 @@ use Phalcon\Mvc\Model;
 
 class IndexModel extends Model
 {
-    private $message = "Hello World!.";
+    /**
+     * @var string
+     */
+    private $message = 'Hello World!.';
 
     /**
      * Gets the message.
@@ -14,7 +17,7 @@ class IndexModel extends Model
      * @param string
      * @return void
      */
-    public function setMessage($message)
+    public function setMessage(string $message)
     {
         $this->message = $message;
     }
@@ -25,7 +28,7 @@ class IndexModel extends Model
      * @param void
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
